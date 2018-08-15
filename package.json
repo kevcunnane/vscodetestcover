@@ -19,6 +19,8 @@
     "@types/node": "^10.7.0"
   },
   "dependencies": {
+    "decache": "^4.4.0",
+    "glob": "^7.1.2",
     "istanbul": "^0.4.5",
     "mocha": "5.1.1",
     "pm-mocha-jenkins-reporter": "^0.2.6",

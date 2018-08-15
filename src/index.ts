@@ -5,7 +5,7 @@
 'use strict';
 
 import paths = require('path');
-const fs = require('fs');
+import fs = require('fs');
 import Mocha = require('mocha');
 import istanbul = require('istanbul');
 
