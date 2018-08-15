@@ -26,11 +26,10 @@ let mocha = new Mocha({
 
 let testOptions = undefined;
 
-function configure(mochaOpts, testOpts): void {
+export function configure(mochaOpts, testOpts): void {
     mocha = new Mocha(mochaOpts);
     testOptions = testOpts;
 }
-exports.configure = configure;
 
 function _mkDirIfExists(dir: string): void {
     if (!fs.existsSync(dir)) {
@@ -48,7 +47,7 @@ function _readCoverOptions(testsRoot: string): ITestRunnerOptions {
     return coverConfig;
 }
 
-function run(testsRoot, clb): any {
+export function run(testsRoot, clb): any {
     // Enable source map support
     require('source-map-support').install();
 
@@ -85,7 +84,6 @@ function run(testsRoot, clb): any {
         }
     });
 }
-exports.run = run;
 
 interface ITestRunnerOptions {
     enabled?: boolean;
