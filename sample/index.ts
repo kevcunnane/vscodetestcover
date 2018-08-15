@@ -7,7 +7,7 @@ let testRunner: any = VscodeTestCover;
 testRunner.configure(
     // Mocha Options
     {
-        ui: 'bdd', // the TDD UI is being used in extension.test.ts (suite, test, etc.)
+        ui: 'tdd', // the TDD UI is being used in extension.test.ts (suite, test, etc.)
         reporter: 'pm-mocha-jenkins-reporter',
         reporterOptions: {
             junit_report_name: 'Extension Tests',
