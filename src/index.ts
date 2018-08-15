@@ -41,7 +41,7 @@ function _readCoverOptions(testsRoot: string): ITestRunnerOptions {
     let coverConfigPath = paths.join(testsRoot, testOptions.coverConfig);
     let coverConfig: ITestRunnerOptions = undefined;
     if (fs.existsSync(coverConfigPath)) {
-        let configContent = fs.readFileSync(coverConfigPath);
+        let configContent = fs.readFileSync(coverConfigPath).toString();
         coverConfig = JSON.parse(configContent);
     }
     return coverConfig;

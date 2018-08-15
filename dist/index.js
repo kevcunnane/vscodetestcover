@@ -4,7 +4,7 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 const paths = require("path");
-const fs = require('fs');
+const fs = require("fs");
 const Mocha = require("mocha");
 const istanbul = require("istanbul");
 let glob = require('glob');
@@ -34,7 +34,7 @@ function _readCoverOptions(testsRoot) {
     let coverConfigPath = paths.join(testsRoot, testOptions.coverConfig);
     let coverConfig = undefined;
     if (fs.existsSync(coverConfigPath)) {
-        let configContent = fs.readFileSync(coverConfigPath);
+        let configContent = fs.readFileSync(coverConfigPath).toString();
         coverConfig = JSON.parse(configContent);
     }
     return coverConfig;
