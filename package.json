@@ -1,0 +1,27 @@
+{
+  "name": "vscodetestcover",
+  "version": "1.0.0",
+  "description": "A Mocha test runner with code coverage support for VSCode Extensions.",
+  "main": "dist/index.js",
+  "typings": "dist/index",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "keywords": [
+    "VSCode",
+    "Extension",
+    "Cover",
+    "Test"
+  ],
+  "author": "kevcunnane",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^10.7.0"
+  },
+  "dependencies": {
+    "istanbul": "^0.4.5",
+    "mocha": "5.1.1",
+    "pm-mocha-jenkins-reporter": "^0.2.6",
+    "remap-istanbul": "^0.11.1"
+  }
+}
