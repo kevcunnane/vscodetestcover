@@ -85,6 +85,22 @@ export function run(testsRoot, clb): any {
     });
 }
 
+interface IRemapOptions {
+    /**
+     * a string containing to utilise as the base path
+     * for determining the location of the source file
+     */
+    basePath?: string;
+    /**
+     * Should absolute paths be used when outputting remapped source paths?
+     */
+    useAbsolutePaths?: boolean;
+    /**
+     * a string or Regular Expression that filters out any coverage where the file path matches
+     */
+    exclude?: string;
+    warn?: Function;
+}
 interface ITestRunnerOptions {
     enabled?: boolean;
     relativeCoverageDir: string;
@@ -93,6 +109,7 @@ interface ITestRunnerOptions {
     includePid?: boolean;
     reports?: string[];
     verbose?: boolean;
+    remapOptions: IRemapOptions;
 }
 
 class CoverageRunner {
@@ -202,15 +219,22 @@ class CoverageRunner {
 
         fs.writeFileSync(coverageFile, JSON.stringify(cov), 'utf8');
 
-        let remappedCollector: istanbul.Collector = remapIstanbul.remap(cov, {
+        let remapOptions: IRemapOptions = {
             warn: (warning => {
-                                  // We expect some warnings as any JS file without a typescript mapping will cause this.
-                                  // By default, we'll skip printing these to the console as it clutters it up
-                                  if (self.options.verbose) {
-                                    console.warn(warning);
-                                  }
-                              })
-        });
+                // We expect some warnings as any JS file without a typescript mapping will cause this.
+                // By default, we'll skip printing these to the console as it clutters it up
+                if (self.options.verbose) {
+                console.warn(warning);
+                }
+            })
+        };
+        if (self.options.remapOptions) {
+            remapOptions = Object.assign(remapOptions, self.options.remapOptions);
+            if (remapOptions.basePath && !paths.isAbsolute(remapOptions.basePath)) {
+                remapOptions.basePath = paths.join(self.testsRoot, remapOptions.basePath);
+            }
+        }
+        let remappedCollector: istanbul.Collector = remapIstanbul.remap(cov, remapOptions);
 
         let reporter = new istanbul.Reporter(undefined, reportingDir);
         let reportTypes = (self.options.reports instanceof Array) ? self.options.reports : ['lcov'];

@@ -167,7 +167,7 @@ class CoverageRunner {
         let pidExt = includePid ? ('-' + process.pid) : '', coverageFile = paths.resolve(reportingDir, 'coverage' + pidExt + '.json');
         _mkDirIfExists(reportingDir); // yes, do this again since some test runners could clean the dir initially created
         fs.writeFileSync(coverageFile, JSON.stringify(cov), 'utf8');
-        let remappedCollector = remapIstanbul.remap(cov, {
+        let remapOptions = {
             warn: (warning => {
                 // We expect some warnings as any JS file without a typescript mapping will cause this.
                 // By default, we'll skip printing these to the console as it clutters it up
@@ -175,7 +175,14 @@ class CoverageRunner {
                     console.warn(warning);
                 }
             })
-        });
+        };
+        if (self.options.remapOptions) {
+            remapOptions = Object.assign(remapOptions, self.options.remapOptions);
+            if (remapOptions.basePath && !paths.isAbsolute(remapOptions.basePath)) {
+                remapOptions.basePath = paths.join(self.testsRoot, remapOptions.basePath);
+            }
+        }
+        let remappedCollector = remapIstanbul.remap(cov, remapOptions);
         let reporter = new istanbul.Reporter(undefined, reportingDir);
         let reportTypes = (self.options.reports instanceof Array) ? self.options.reports : ['lcov'];
         reporter.addAll(reportTypes);
