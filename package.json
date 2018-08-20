@@ -1,6 +1,6 @@
 {
   "name": "vscodetestcover",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Mocha test runner with code coverage support for VSCode Extensions.",
   "main": "dist/index.js",
   "typings": "dist/index",
