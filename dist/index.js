@@ -179,7 +179,9 @@ class CoverageRunner {
         if (self.options.remapOptions) {
             remapOptions = Object.assign(remapOptions, self.options.remapOptions);
             if (remapOptions.basePath && !paths.isAbsolute(remapOptions.basePath)) {
-                remapOptions.basePath = paths.join(self.testsRoot, remapOptions.basePath);
+                if (self.testsRoot && !remapOptions.basePath.startsWith(self.testsRoot)) {
+                    remapOptions.basePath = paths.join(self.testsRoot, remapOptions.basePath);
+                }
             }
         }
         let remappedCollector = remapIstanbul.remap(cov, remapOptions);

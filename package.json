@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "typings": "dist/index",
   "scripts": {
-    "compile": "tsc"
+    "compile": "tsc",
+    "prepare": "npm run compile"
   },
   "keywords": [
     "VSCode",
@@ -20,7 +21,8 @@
     "url": "https://github.com/kevcunnane/vscodetestcover.git"
   },
   "devDependencies": {
-    "@types/node": "^10.7.0"
+    "@types/node": "^10.7.0",
+    "typescript": "^3.4.5"
   },
   "dependencies": {
     "decache": "^4.4.0",
